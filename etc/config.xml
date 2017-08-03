@@ -2,9 +2,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <gigya_section_datastorage_settings>
-            <general_fetch_method>
+            <datastorage_fetch_method>
                 <used_fetch_method>search</used_fetch_method>
-            </general_fetch_method>
+            </datastorage_fetch_method>
         </gigya_section_datastorage_settings>
     </default>
 </config>

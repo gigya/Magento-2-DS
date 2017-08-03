@@ -6,7 +6,7 @@
             <label>Data Storage settings</label>
             <tab>gigyaim_tab</tab>
             <resource>Gigya_GigyaDS::datastorage_settings</resource>
-            <group id="general_mapping_file_path" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="datastorage_mapping_file_path" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Mapping file path</label>
                 <field id="mapping_file_path" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Mapping file path</label>
@@ -15,7 +15,7 @@
                     </comment>
                 </field>
             </group>
-            <group id="general_fetch_method" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="datastorage_fetch_method" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Fetch method</label>
                 <field id="used_fetch_method" translate="label" type="radios" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Method</label>
