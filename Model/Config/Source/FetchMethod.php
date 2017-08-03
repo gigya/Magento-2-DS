@@ -8,7 +8,7 @@ namespace Gigya\GigyaDS\Model\Config\Source;
  */
 class FetchMethod implements \Magento\Framework\Option\ArrayInterface
 {
-    const OPTION_FETCH_METHOD_SEARCH = 'fetch';
+    const OPTION_FETCH_METHOD_SEARCH = 'search';
     const OPTION_FETCH_METHOD_GET = 'get';
 
     /**
@@ -20,7 +20,7 @@ class FetchMethod implements \Magento\Framework\Option\ArrayInterface
     {
         return [
             ['value' => self::OPTION_FETCH_METHOD_SEARCH, 'label' => __('Search')],
-            ['value' => self::OPTION_FETCH_METHOD_GET, 'label' => __('Fetch')]
+            ['value' => self::OPTION_FETCH_METHOD_GET, 'label' => __('Get')]
         ];
     }
 }
