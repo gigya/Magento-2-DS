@@ -1,0 +1,41 @@
+{
+    "name": "gigya/magento2-ds",
+    "description": "Gigya Data Store for Magento 2",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Swan A",
+            "email": "sandre@clever-age.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/gigya/php_cms_kit.git"
+        },
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "require": {
+        "php": "~5.5.0|~5.6.0|~7.0.0",
+        "magento/module-customer": "100.1.*",
+        "gigya/cms-starter-kit": "^1.1.7",
+        "gigya/magento2-im": ">=5.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Gigya\\GigyaDS\\": ""
+        }
+    }
+}
+
