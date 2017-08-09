@@ -5,7 +5,6 @@
 
 namespace Gigya\GigyaDS\Api;
 
-use Gigya\CmsStarterKit\sdk\GSApiException;
 
 /**
  * Interface GigyaDSServiceInterface
@@ -32,5 +31,12 @@ interface GigyaDSServiceInterface
      */
     function search($uid);
 
-    function retrieveData($uid);
+    /**
+     * Retrieve data from Gigya DS using get or search method
+     * The method to use is retrieved from magento backend
+     *
+     * @param $uid
+     * @return mixed
+     */
+    function fetchFromMapping($uid);
 }

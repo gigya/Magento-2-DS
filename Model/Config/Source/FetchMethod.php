@@ -8,7 +8,10 @@ namespace Gigya\GigyaDS\Model\Config\Source;
  */
 class FetchMethod implements \Magento\Framework\Option\ArrayInterface
 {
+    /** const for ds search method */
     const OPTION_FETCH_METHOD_SEARCH = 'search';
+
+    /** const from ds get method */
     const OPTION_FETCH_METHOD_GET = 'get';
 
     /**

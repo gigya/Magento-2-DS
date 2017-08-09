@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright © 2016 X2i.
+ * Copyright © 2017 Clever-age.
  */
 
 namespace Gigya\GigyaDS\Observer;
 
-use Gigya\GigyaDS\Api\GigyaDSRepositoryInterface;
-use Gigya\GigyaDS\Helper\GigyaDSSyncHelper;
+use Gigya\GigyaDS\Api\GigyaDSServiceInterface;
+use Gigya\GigyaDS\Model\GigyaDSService;
 use Gigya\GigyaIM\Observer\FrontendMagentoCustomerEnricher;
 use Gigya\GigyaIM\Api\GigyaAccountRepositoryInterface;
 use Gigya\GigyaIM\Helper\GigyaSyncHelper;
@@ -14,19 +14,22 @@ use Gigya\GigyaIM\Model\FieldMapping\GigyaToMagento;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\App\Action\Context;
 use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
+use Magento\Framework\App\Area;
 
 class DSMagentoCustomerEnricher extends FrontendMagentoCustomerEnricher
 {
-    protected $gigyaDSSyncHelper;
+    /** @var GigyaDSService $gigyaDSService */
+    protected $gigyaDSService;
 
     /**
-     * FrontendMagentoCustomerEnricher constructor.
-     *
+     * DSMagentoCustomerEnricher constructor.
      * @param CustomerRepositoryInterface $customerRepository
      * @param GigyaAccountRepositoryInterface $gigyaAccountRepository
      * @param GigyaSyncHelper $gigyaSyncHelper
      * @param GigyaLogger $logger
      * @param Context $context
+     * @param GigyaToMagento $gigyaToMagentoMapper
+     * @param GigyaDSServiceInterface $gigyaDSService
      */
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
@@ -35,7 +38,7 @@ class DSMagentoCustomerEnricher extends FrontendMagentoCustomerEnricher
         GigyaLogger $logger,
         Context $context,
         GigyaToMagento $gigyaToMagentoMapper,
-        GigyaDSSyncHelper $gigyaDSSyncHelper
+        GigyaDSServiceInterface $gigyaDSService
     ) {
         parent::__construct(
             $customerRepository,
@@ -45,7 +48,7 @@ class DSMagentoCustomerEnricher extends FrontendMagentoCustomerEnricher
             $context,
             $gigyaToMagentoMapper
         );
-        $this->gigyaDSSyncHelper = $gigyaDSSyncHelper;
+        $this->gigyaDSService = $gigyaDSService;
     }
     /**
      * Given a Magento customer, retrieves the corresponding Gigya account data from the Gigya service.
@@ -54,18 +57,19 @@ class DSMagentoCustomerEnricher extends FrontendMagentoCustomerEnricher
      * @return array [
      *                  'gigya_user' => GigyaUser : the data from the Gigya service
      *                  'gigya_logging_email' => string : the email for logging as set on this Gigya account
-     *                  'gigya_ds' => array : the data from Gigya Data Store
      *               ]
      */
     protected function getGigyaDataForEnrichment($magentoCustomer)
     {
         $gigyaAccountData = $this->gigyaAccountRepository->get($magentoCustomer->getGigyaUid());
         $gigyaAccountLoggingEmail = $this->gigyaSyncHelper->getMagentoCustomerAndLoggingEmail($gigyaAccountData)['logging_email'];
-        $gigyaDSData = $this->gigyaDSSyncHelper->get($magentoCustomer->getGigyaUid());
+        $gigyaDSData = $this->gigyaDSService->fetchFromMapping($magentoCustomer->getGigyaUid());
+        $gigyaAccountData->setDs($gigyaDSData['ds']);
+
 
         return [
             'gigya_user' => $gigyaAccountData,
-            'gigya_logging_email' => $gigyaAccountLoggingEmail
+            'gigya_logging_email' => $gigyaAccountLoggingEmail,
         ];
     }
 }

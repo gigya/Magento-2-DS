@@ -2,5 +2,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
     <preference for="Gigya\GigyaIM\Observer\FrontendMagentoCustomerEnricher" type="Gigya\GigyaDS\Observer\DSMagentoCustomerEnricher" />
     <preference for="Gigya\GigyaIM\Model\MagentoCustomerFieldsUpdater" type="Gigya\GigyaDS\Model\DSMagentoCustomerFieldsUpdater" />
+    <preference for="Gigya\GigyaIM\Model\FieldMapping\GigyaToMagento" type="Gigya\GigyaDS\Model\FieldMapping\DSGigyaToMagento" />
     <preference for="Gigya\GigyaDS\Api\GigyaDSServiceInterface" type="Gigya\GigyaDS\Model\GigyaDSService" />
 </config>
