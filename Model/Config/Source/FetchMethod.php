@@ -3,8 +3,11 @@
 namespace Gigya\GigyaDS\Model\Config\Source;
 
 /**
+ * Class FetchMethod
+ *
  * Fetch method allowed in config
  *
+ * @package Gigya\GigyaDS\Model\Config\Source
  */
 class FetchMethod implements \Magento\Framework\Option\ArrayInterface
 {

@@ -9,6 +9,8 @@ use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
 use Magento\Framework\App\Helper\Context;
 
 /**
+ * Helper for generic method that could be used with DSSync
+ *
  * Class GigyaDSSyncHelper
  * @package Gigya\GigyaDS\Helper
  */

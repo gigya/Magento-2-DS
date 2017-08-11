@@ -2,7 +2,11 @@
 namespace Gigya\GigyaDS\Model\Cache\Type;
 
 /**
+ * Class FieldMapping
+ *
  * System / Cache Management / Cache type "Custom Cache Tag"
+ *
+ * @package Gigya\GigyaDS\Model\Cache\Type
  */
 class FieldMapping extends \Magento\Framework\Cache\Frontend\Decorator\TagScope
 {

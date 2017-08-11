@@ -11,6 +11,10 @@ use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
 
 /**
  * Class DSGigyaToMagento
+ *
+ * @inheritdoc
+ * Override parent to allow empty Gigya account field mapping
+ *
  * @package Gigya\GigyaDS\Model\FieldMapping
  */
 class DSGigyaToMagento extends GigyaToMagento

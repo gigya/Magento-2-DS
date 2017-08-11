@@ -14,6 +14,10 @@ use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
 
 /**
  * Class DSMagentoCustomerFieldsUpdater
+ *
+ * @inheritdoc
+ * Override parent method to include the DS data into the mapping routine
+ *
  * @package Gigya\GigyaDS\Model
  */
 class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustomerFieldsUpdater

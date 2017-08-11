@@ -14,6 +14,10 @@ use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
 
 /**
  * Class GigyaDSService
+ *
+ * This class is used to make calls to the Gigya DS service
+ * It contain all the fonction needed to make a get or a search request
+ *
  * @package Gigya\GigyaDS\Model
  */
 class GigyaDSService implements GigyaDSServiceInterface

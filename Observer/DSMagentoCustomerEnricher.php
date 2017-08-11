@@ -16,6 +16,15 @@ use Magento\Framework\App\Action\Context;
 use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
 use Magento\Framework\App\Area;
 
+/**
+ * Class DSMagentoCustomerEnricher
+ *
+ * @inheritdoc
+ *
+ * Override to fetch DS Data
+ *
+ * @package Gigya\GigyaDS\Observer
+ */
 class DSMagentoCustomerEnricher extends FrontendMagentoCustomerEnricher
 {
     /** @var GigyaDSService $gigyaDSService */
@@ -51,25 +60,17 @@ class DSMagentoCustomerEnricher extends FrontendMagentoCustomerEnricher
         $this->gigyaDSService = $gigyaDSService;
     }
     /**
-     * Given a Magento customer, retrieves the corresponding Gigya account data from the Gigya service.
-     *
-     * @param $magentoCustomer
-     * @return array [
-     *                  'gigya_user' => GigyaUser : the data from the Gigya service
-     *                  'gigya_logging_email' => string : the email for logging as set on this Gigya account
-     *               ]
+     * @inheritdoc
+     * Also retrieves the corresponding Gigya DS data from the Gigya service and store it into gigya_user
      */
     protected function getGigyaDataForEnrichment($magentoCustomer)
     {
-        $gigyaAccountData = $this->gigyaAccountRepository->get($magentoCustomer->getGigyaUid());
-        $gigyaAccountLoggingEmail = $this->gigyaSyncHelper->getMagentoCustomerAndLoggingEmail($gigyaAccountData)['logging_email'];
+        $result = parent::getGigyaDataForEnrichment($magentoCustomer);
+
         $gigyaDSData = $this->gigyaDSService->fetchFromMapping($magentoCustomer->getGigyaUid());
-        $gigyaAccountData->setDs($gigyaDSData['ds']);
+        $result['gigya_user']->setDs($gigyaDSData['ds']);
 
-
-        return [
-            'gigya_user' => $gigyaAccountData,
-            'gigya_logging_email' => $gigyaAccountLoggingEmail,
-        ];
+        return $result;
     }
+
 }
