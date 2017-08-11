@@ -79,27 +79,32 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
         if ($this->state->getAreaCode() === Area::AREA_ADMINHTML) {
             return;
         }
-        $conf = $this->getMappingFromCache(CacheTypeDS::CACHE_TAG, CacheTypeDS::TYPE_IDENTIFIER);
-        if (false === $conf) {
 
-            $mappingDSJson = file_get_contents($this->getDSPath());
-            if (false === $mappingDSJson) {
-                $err     = error_get_last();
-                $message = "Could not retrieve field ds mapping configuration file. message was:" . $err['message'];
-                throw new \Exception("$message");
+        try {
+            $conf = $this->getMappingFromCache(CacheTypeDS::CACHE_TAG, CacheTypeDS::TYPE_IDENTIFIER);
+            if (false === $conf) {
+
+                $mappingDSJson = file_get_contents($this->getDSPath());
+                if (false === $mappingDSJson) {
+                    $err     = error_get_last();
+                    $message = "Could not retrieve field ds mapping configuration file. message was:" . $err['message'];
+                    throw new \Exception("$message");
+                }
+
+                $conf = new fieldMapping\Conf($mappingDSJson);
+                $this->setMappingCache($conf, CacheTypeDS::CACHE_TAG, CacheTypeDS::TYPE_IDENTIFIER);
             }
 
-            $conf = new fieldMapping\Conf($mappingDSJson);
-            $this->setMappingCache($conf, CacheTypeDS::CACHE_TAG, CacheTypeDS::TYPE_IDENTIFIER);
+            //If the parent::retrieveFieldMapping does not work the gigyaMapping is not set so we only retrieve the DS mapping
+            if (is_array($this->getGigyaMapping())) {
+                $fullMapping = array_merge($this->getGigyaMapping(), $conf->getGigyaKeyed());
+            } else {
+                $fullMapping = $conf->getGigyaKeyed();
+            }
+            $this->setGigyaMapping($fullMapping);
+        } catch (\Exception $e) {
+            $this->logger->debug($e->getMessage());
         }
-
-        //If the parent::retrieveFieldMapping does not work the gigyaMapping is not set so we only retrieve the DS mapping
-        if (is_array($this->getGigyaMapping())) {
-            $fullMapping = array_merge($this->getGigyaMapping(), $conf->getGigyaKeyed());
-        } else {
-            $fullMapping = $conf->getGigyaKeyed();
-        }
-        $this->setGigyaMapping($fullMapping);
     }
 
     /**

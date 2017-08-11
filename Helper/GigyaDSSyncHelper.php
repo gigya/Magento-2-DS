@@ -68,7 +68,10 @@ class GigyaDSSyncHelper extends AbstractHelper
         $this->_customerFieldsUpdater->setDSPath($this->_dsSyncConfigHelper->getDSMappingPath());
         $this->_customerFieldsUpdater->retrieveFieldMappings();
         $fieldMapping = $this->_customerFieldsUpdater->getGigyaMapping();
-
+        if (!is_array($fieldMapping)) {
+            $fieldMapping = [];
+        }
+        
         return $fieldMapping;
     }
 
