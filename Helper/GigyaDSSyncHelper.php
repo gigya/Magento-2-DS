@@ -43,7 +43,6 @@ class GigyaDSSyncHelper extends AbstractHelper
      * @param GigyaDSSyncConfigHelper $dsyncConfigHelper
      */
     public function __construct(
-        ScopeConfigInterface $scopeConfig,
         GigyaLogger $logger,
         Context $context,
         DSMagentoCustomerFieldsUpdater $customerFieldsUpdater,
@@ -51,7 +50,7 @@ class GigyaDSSyncHelper extends AbstractHelper
     )
     {
         parent::__construct($context);
-        $this->_scopeConfig = $scopeConfig;
+        $this->_scopeConfig = $context->getScopeConfig();
         $this->_logger = $logger;
         $this->_customerFieldsUpdater = $customerFieldsUpdater;
         $this->_dsSyncConfigHelper = $dsyncConfigHelper;

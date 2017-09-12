@@ -29,12 +29,11 @@ class GigyaDSSyncConfigHelper extends AbstractHelper
      * @param Context $context
      */
     public function __construct(
-        ScopeConfigInterface $scopeConfig,
         Context $context
     )
     {
         parent::__construct($context);
-        $this->_scopeConfig = $scopeConfig;
+        $this->_scopeConfig = $context->getScopeConfig();
     }
 
 
