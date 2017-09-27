@@ -70,7 +70,6 @@ class GigyaDSSyncHelper extends AbstractHelper
         if (!is_array($fieldMapping)) {
             $fieldMapping = [];
         }
-        
         return $fieldMapping;
     }
 

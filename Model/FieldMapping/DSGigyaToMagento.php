@@ -8,6 +8,7 @@ use Gigya\GigyaIM\Model\FieldMapping\GigyaToMagento;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Gigya\GigyaIM\Model\MagentoCustomerFieldsUpdater;
 use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
+use Magento\Framework\Module\Dir\Reader as ModuleDirReader;
 
 /**
  * Class DSGigyaToMagento
@@ -33,10 +34,11 @@ class DSGigyaToMagento extends GigyaToMagento
         ScopeConfigInterface $scopeConfig,
         GigyaLogger $logger,
         MagentoCustomerFieldsUpdater $customerFieldsUpdater,
-        GigyaDSSyncConfigHelper $dsSyncConfigHelper
+        GigyaDSSyncConfigHelper $dsSyncConfigHelper,
+        ModuleDirReader $moduleDirReader
     )
     {
-        parent::__construct($scopeConfig, $logger, $customerFieldsUpdater);
+        parent::__construct($scopeConfig, $logger, $customerFieldsUpdater, $moduleDirReader);
         $this->dsSyncConfigHelper = $dsSyncConfigHelper;
     }
 

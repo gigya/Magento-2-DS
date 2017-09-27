@@ -11,6 +11,8 @@ use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
+use Magento\Customer\Model\CustomerFactory;
+use Magento\Customer\Model\Customer;
 
 /**
  * Class DSMagentoCustomerFieldsUpdater
@@ -34,6 +36,12 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
     /** @var State $state */
     protected $state;
 
+
+    /**
+     * @var Customer
+     */
+    protected $customerModel;
+
     /**
      * DSMagentoCustomerFieldsUpdater constructor.
      * @param CacheTypeIM $gigyaCacheType
@@ -46,13 +54,15 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
         EventManagerInterface $eventManager,
         GigyaLogger $logger,
         GigyaDSSyncConfigHelper $dsSyncConfigHelper,
-        State $state
+        State $state,
+        CustomerFactory $customerFactory
     )
     {
         parent::__construct(
             $gigyaCacheType,
             $eventManager,
-            $logger
+            $logger,
+            $customerFactory
         );
 
         $this->dsSyncConfigHelper = $dsSyncConfigHelper;
@@ -166,7 +176,10 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
      */
     public function callCmsHook() {
         parent::callCmsHook();
-        $gigya_user = array("gigya_user" => $this->getGigyaUser());
+        $gigya_user = array(
+            "gigya_user" => $this->getGigyaUser(),
+            "customer" => $this->customerModel
+        );
         $this->eventManager->dispatch("gigya_client_gigya_ds_data_alter", $gigya_user);
     }
 }
