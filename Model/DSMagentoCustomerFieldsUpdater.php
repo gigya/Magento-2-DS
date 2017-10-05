@@ -36,7 +36,6 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
     /** @var State $state */
     protected $state;
 
-
     /**
      * @var Customer
      */
@@ -54,15 +53,13 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
         EventManagerInterface $eventManager,
         GigyaLogger $logger,
         GigyaDSSyncConfigHelper $dsSyncConfigHelper,
-        State $state,
-        CustomerFactory $customerFactory
+        State $state
     )
     {
         parent::__construct(
             $gigyaCacheType,
             $eventManager,
-            $logger,
-            $customerFactory
+            $logger
         );
 
         $this->dsSyncConfigHelper = $dsSyncConfigHelper;
