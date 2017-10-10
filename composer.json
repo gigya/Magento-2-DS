@@ -15,10 +15,6 @@
     ],
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/gigya/php_cms_kit.git"
-        },
-        {
             "type": "composer",
             "url": "https://repo.magento.com/"
         }
@@ -26,7 +22,7 @@
     "require": {
         "php": "~5.5.0|~5.6.0|~7.0.0",
         "magento/module-customer": "100.1.*",
-        "gigya/magento2-im": "dev-develop"
+        "gigya/magento2-im": "5.0.*"
     },
     "autoload": {
         "files": [
