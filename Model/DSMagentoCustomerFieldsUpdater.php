@@ -11,8 +11,6 @@ use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
-use Magento\Customer\Model\CustomerFactory;
-use Magento\Customer\Model\Customer;
 
 /**
  * Class DSMagentoCustomerFieldsUpdater
@@ -35,11 +33,6 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
 
     /** @var State $state */
     protected $state;
-
-    /**
-     * @var Customer
-     */
-    protected $customerModel;
 
     /**
      * DSMagentoCustomerFieldsUpdater constructor.
@@ -80,11 +73,6 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
             parent::retrieveFieldMappings();
         } catch (\Exception $e) {
             $this->logger->debug($e->getMessage());
-        }
-
-        //Prevent loading of mapping for backend
-        if ($this->state->getAreaCode() === Area::AREA_ADMINHTML) {
-            return;
         }
 
         try {
@@ -175,7 +163,7 @@ class DSMagentoCustomerFieldsUpdater extends \Gigya\GigyaIM\Model\MagentoCustome
         parent::callCmsHook();
         $gigya_user = array(
             "gigya_user" => $this->getGigyaUser(),
-            "customer" => $this->customerModel
+            "customer" => $this->getMagentoUser()
         );
         $this->eventManager->dispatch("gigya_client_gigya_ds_data_alter", $gigya_user);
     }

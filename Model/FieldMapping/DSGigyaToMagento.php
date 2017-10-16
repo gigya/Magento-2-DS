@@ -5,7 +5,7 @@ namespace Gigya\GigyaDS\Model\FieldMapping;
 use Gigya\GigyaDS\Helper\GigyaDSSyncConfigHelper;
 use Gigya\GigyaIM\Exception\GigyaFieldMappingException;
 use Gigya\GigyaIM\Model\FieldMapping\GigyaToMagento;
-use Magento\Customer\Model\Customer;
+use Magento\Customer\Model\Data\Customer;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Gigya\GigyaIM\Model\MagentoCustomerFieldsUpdater;
 use Gigya\GigyaIM\Logger\Logger as GigyaLogger;
@@ -54,7 +54,7 @@ class DSGigyaToMagento extends GigyaToMagento
     {
         $config_file_path = $this->scopeConfig->getValue("gigya_section_fieldmapping/general_fieldmapping/mapping_file_path");
         $config_file_path_DS = $this->dsSyncConfigHelper->getDSMappingPath();
-        if (!is_null($config_file_path) || !is_null($config_file_path_DS)) {
+        if ($config_file_path != null || $config_file_path_DS != null) {
             $this->customerFieldsUpdater->setPath($config_file_path);
             $this->customerFieldsUpdater->setGigyaUser($gigyaUser);
             $this->customerFieldsUpdater->setMagentoUser($customer);
